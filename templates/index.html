@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title> Loan or not loan?</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+      </head>
+    <body>
+        <div class='login'>
+          <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <h1 class="display-4">Welcome to Loan or not Loan classifier</h1>
+              <p class="lead">{{output}}</p>
+            </div>
+          </div>
+            <form action="{{url_for('predict')}}" method="post">
+                  <div class="form-group">
+                    <label for="genderSelect">Gender</label>
+                    <select name="Gender" required class="form-control" id="genderSelect" aria-describedby="genderHelp">
+                      <option>Male</option>
+                      <option>Female</option>
+                    </select>
+                    <small id="genderHelp" class="form-text text-muted">Gender of the applicant (Male, Female).</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="marriedSelect">Married</label>
+                    <select name="Married" required class="form-control" id="marriedSelect" aria-describedby="marriedHelp">
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                    <small id="marriedHelp" class="form-text text-muted">The marital status of the applicant (Yes, No).</small>                    
+                  </div>
+                  <div class="form-group">
+                    <label for="dependentsSelect">Dependents</label>
+                    <select name="Dependents" required class="form-control" id="dependentsSelect" aria-labelledby="dependentsHelp">
+                      <option>0</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3+</option>
+                    </select>
+                    <small id="dependentsHelp" class="form-text text-muted">No. of people dependent on the applicant (0, 1, 2, 3+).</small>  
+                  </div>
+                  <div class="form-group">
+                    <label for="educationSelect">Education</label>
+                    <select name="Education" required class="form-control" id="educationSelect" aria-labelledby="educationHelp">
+                      <option>Graduate</option>
+                      <option>Not Graduate</option>
+                    </select>
+                    <small id="educationHelp" class="form-text text-muted">Education level of the applicant (Graduated, Not Graduated).</small>  
+                  </div>
+                  <div class="form-group">
+                    <label for="selfEmployedSelect">Self Employed</label>
+                    <select name="Self Employed" required class="form-control" id="selfEmployedSelect" aria-labelledby="selfEmployedHelp">
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                    <small id="selfEmployedHelp" class="form-text text-muted">If the applicant is self-employed or not(Yes, No).</small>                      
+                  </div>
+                  <div class="form-group">
+                    <label for="applicantIncomeInput">Applicant Income</label>
+                    <input name="Applicant Income" required class="form-control" id="applicantIncomeInput" placeholder="4547" aria-labelledby="applicantIncomeHelp">
+                    <small id="applicantIncomeHelp" class="form-text text-muted">The amount of income the applicant earns.</small>                      
+                  </div>
+                  <div class="form-group">
+                    <label for="coApplicantIncomeInput">Coapplicant Income</label>
+                    <input name="Coapplicant Income" required class="form-control" id="coApplicantIncomeInput" placeholder="0", aria-labelledby="coApplicantIncomeHelp">
+                    <small id="coApplicantIncomeHelp" class="form-text text-muted">The amount of income the co-applicant earns.</small>                      
+                  </div>
+                  <div class="form-group">
+                    <label for="loanAmountInput">Loan amount</label>
+                    <input name="Loan amount" required class="form-control" id="loanAmountInput" placeholder="1000" aria-labelledby="loanAmountHelp">
+                    <small id="loanAmountHelp" class="form-text text-muted">The amount of loan the applicant has requested for.</small>                      
+                  </div>
+                  <div class="form-group">
+                    <label for="loanAmountTerm">Loan amount Term</label>
+                    <input name="Loan amount term" required class="form-control" id="loanAmountInput" placeholder="45" aria-labelledby="loanAmounTermHelp">
+                    <small id="loanAmounTermHelp" class="form-text text-muted">No. of days over which the loan will be paid.</small>                      
+                  </div>
+                  <div class="form-group">
+                    <label for="creaditHistory">Credit History: </label>
+                    <input name="Credit History" required class="form-control" id="loanAmountInput" placeholder="1" aria-labelledby="creditHistoryHelp">
+                    <small id="creditHistoryHelp" class="form-text text-muted">A record of a borrower's responsible repayment of debts(1 has all debts paid, 0 not paid).</small>                      
+                  </div>
+                  <div class="form-group">
+                    <label for="propertyAreaSelect">Property Area</label>
+                    <select name="Property Area" required class="form-control" id="propertyAreaSelect" aria-labelledby="propertyAreaHelp">
+                      <option>Rural</option>
+                      <option>Urban</option>
+                      <option>Semiurban</option>
+                    </select>
+                    <small id="propertyAreaHelp"  class="form-text text-muted">The type of location whre the applicant's property lies(Rural, Semiurban, Urban).</small>                      
+                  </div>
+                  <button type="submit" class="btn btn-primary" data-toggle="collapse" data-target="#modalPrediction" aria-expanded="true" aria-controls="collapseExample">Submit</button>
+            </form>    
+        </div>
+         <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+    </body>
+</html>
